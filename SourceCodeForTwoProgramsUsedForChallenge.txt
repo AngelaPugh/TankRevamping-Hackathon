@@ -1,0 +1,209 @@
+
+(Notification program C#)
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Net.Mail;
+
+namespace TankReformRevamping01
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+       // Random Diagnostics = new Random();
+
+        
+
+        //private void RunTestButton_Click(object sender, EventArgs e)
+        //{
+            Random Diagnostics = new Random();
+           // List<string> TankNum = new List<string>();
+
+
+           
+            
+            //String[] GasType = { "Regular", "Unleaded", "Diesel" };
+           // String[] PFTest = { "Pass", "Fail" };
+           // String[] TankNum = { "1", "2", "3" };
+
+            // int.Parse(x.ToString())).ToArray();
+
+
+           
+       // }
+
+
+        private void SendInfoButton_Click(object sender, EventArgs e)
+        {
+            //Create a new Email to send.
+                                                 //This is the sender..      This is the recipient..
+                MailMessage mm = new MailMessage("andrewstamps@outlook.com","9013264396@txt.att.net");
+                mm.Subject = "Precision Leak Test Certificate";
+                mm.Body = "Regular " +
+                "Pass "+ "2";
+
+                  
+                
+            //Utilize the outlook email server to send an email from an address
+                mm.IsBodyHtml = false;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.outlook.com";
+                smtp.EnableSsl = true;
+            //The email account used to send the message. 
+                NetworkCredential NetworkCred = new NetworkCredential("andrewstamps@outlook.com", "MalliaAngel256!");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+
+               
+        }//End Send Info Button
+
+        
+    }
+}
+
+
+(Arduino language)
+/*
+Some code and wiring inspired by http://en.wikiversity.org/wiki/User:Dstaub/robotcar
+*/
+
+
+#define trigPin 9
+#define echoPin 10
+#define led 13
+
+
+void setup() {
+  Serial.begin (9600);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(led, OUTPUT);
+
+}
+
+void loop() {
+   digitalWrite(led,LOW);
+  long duration, distance;
+  digitalWrite(trigPin, LOW);  // Added this line
+  delayMicroseconds(2); // Added this line
+  digitalWrite(trigPin, HIGH);
+//  delayMicroseconds(1000); - Removed this line
+  delayMicroseconds(10); // Added this line
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+   distance = (duration/2) / 29.1;
+  
+  if (distance > 4) {  // This is where the LED On/Off happens
+    digitalWrite(led,HIGH); // When the Red condition is met, the Green LED should turn off
+   }else{
+    Serial.print(distance);
+    Serial.println(" cm");
+  }
+  delay(500);
+   cvCaptureFromCAM(int device)
+  }
+
+(Second Arduino Program)
+// code and wiring inspired by http://en.wikiversity.org/wiki/User:Dstaub/robotcar
+
+
+
+#define trigPin 9
+#define echoPin 10
+#define led 13
+
+
+void setup() {
+  Serial.begin (9600);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(led, OUTPUT);
+
+}
+
+void loop() {
+   digitalWrite(led,LOW);
+  long duration, distance;
+  digitalWrite(trigPin, LOW);  
+  delayMicroseconds(2); 
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10); 
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = (duration/4) / 29.1;
+  
+  if (distance > 4) {  // This is where the LED On/Off happens
+    digitalWrite(led,HIGH);
+  }
+      Serial.print(distance); // info from sensor being displayed
+  delay(500);
+  }
+
+
+
+
+(C# Camera program)
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.IO.Ports;
+using System.Diagnostics;
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool decaf = false; // varable decaf = false since decaf coffee is not real :)
+           
+            while (true)
+            {
+                if ((readport() > 52) & (decaf == false))
+                {
+                    Process.Start("microsoft.windows.camera:"); // opens camera when sensor is activated
+                    decaf = true;
+                }
+            }
+        }
+                private static int readport() // read data from arduino com3 serial port
+            {
+                // Instantiate the communications port with some basic settings
+                SerialPort port = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
+                int portbyte;
+                //Initializes a new instance of the SerialPort class using the specified port name, baud rate, parity bit, data bits, and stop bit.
+
+                // Open the port for communications
+                port.Open();
+
+                portbyte = Convert.ToInt32((char)port.ReadByte());
+                Console.WriteLine(portbyte);
+                port.Close();
+
+                return portbyte;
+
+
+
+            }
+        }
+    }
+
